@@ -4,6 +4,7 @@ import styles from "../css/navbar.module.css"
 
 export default function Navbar() {
     const {themeName, toggleTheme} = useContext(ThemeContext)
+
   return (
     <>
         <div className={styles.navbar}>
@@ -13,19 +14,10 @@ export default function Navbar() {
                 </span>
             </div>
             
-            <div className={styles["right-bar"]}>
-            
-                {themeName == "light" ?
-                    <button onClick={toggleTheme} id={styles["toggle-theme-dark"]} className="material-symbols-outlined">
-                    nights_stay
-                    </button>
-                : 
-                    <button onClick={toggleTheme} id={styles["toggle-theme-light"]} className="material-symbols-outlined">
-                        sunny
-                    </button>
-                }
-                
-                
+            <div className={styles["right-bar"]}>     
+                <button onClick={toggleTheme} id={styles["toggle-theme"]} className={`material-symbols-outlined ${styles[themeName == "dark" ? "dark" : "light"]}`}>
+                {themeName == "light" ? "nights_stay" : "sunny"}
+                </button>
             </div>
         </div>
     </>
