@@ -4,7 +4,7 @@
 }
 
 
-* {
+body {
     color: var(--text);
     background-color: var(--main);
 }
