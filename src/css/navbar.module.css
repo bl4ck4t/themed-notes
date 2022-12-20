@@ -1,12 +1,7 @@
-:root {
-    --text: pink;
-    --main: red;
-}
-
-
 body {
     color: var(--text);
     background-color: var(--main);
+    transition: background-color 0.3s ease-in;
 }
 
 .navbar {
@@ -35,18 +30,19 @@ body {
 }
 
 
-#toggle-theme-dark,#toggle-theme-light {
+#toggle-theme {
     border: none;
     font-size: 2em;
     background-color: inherit;
+    outline: none;
     cursor: pointer;
 }
 
-#toggle-theme-light {
+.dark {
     color: yellow;
 }
 
-#toggle-theme-dark:hover, #toggle-theme-light:hover {
+.dark:hover, .light:hover {
     transform: scale(1.2,1.2);
 }
 

@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react"
+import { createContext, CSSProperties, useEffect, useState } from "react"
 import { themes } from "./themes";
 
 type ThemeContextProviderProps = {
@@ -7,25 +7,34 @@ type ThemeContextProviderProps = {
 
 type ThemeName = "light" | "dark";
 
+type ThemeProps = {
+    main: CSSProperties,
+    text: CSSProperties
+}
 
 export const ThemeContext = createContext({
-    themeName: "dark",
+    themeName: "dark" as ThemeName,
     toggleTheme: () => {}
 });
 
-export default function ThemeContextProvider( {
-    children} : ThemeContextProviderProps ) {
+export default function ThemeContextProvider( {children} : ThemeContextProviderProps ) {
 
     const [themeName, setThemeName] = useState<ThemeName>("dark");
-    const [theme, setTheme] = useState(themes[themeName]);
+    const [theme, setTheme] = useState<ThemeProps>(themes[themeName] as ThemeProps);
 
     const toggleTheme = () => {
-        theme === themes.dark ? (setTheme(themes.light), setThemeName("light")) : (setTheme(themes.dark), setThemeName("dark"));
+        theme === themes.dark ? (setTheme(themes["light"] as ThemeProps), setThemeName("light")) : (setTheme(themes["dark"] as ThemeProps), setThemeName("dark"));
     };
 
+    function setCSSVariables () {
+        let value : keyof ThemeProps;
+        for (value in theme) {
+          document.documentElement.style.setProperty(`--${value}`, `${theme[value] as CSSProperties}`);
+        }
+      };
+
     useEffect(() => {
-        document.body.style.setProperty("--text", themes[themeName].text);
-        document.body.style.setProperty("--main",themes[themeName].main);
+        setCSSVariables();
     }, [toggleTheme])
 
   return (
